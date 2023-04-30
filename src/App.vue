@@ -21,9 +21,9 @@ const questions = ref([
     seleted: null,
   },
   {
-    question: "What is Node.js",
-    answer: 2,
-    options: ["A Frontend Framework", "API generator", "A Backend Database"],
+    question: "What is PHP",
+    answer: 1,
+    options: ["A Frontend Framework", "Server Site Language", "A Backend Database"],
     seleted: null,
   },
 ]);
@@ -67,11 +67,12 @@ const NextQuesttion = () => {
     Quiz-App with Vue.js | www.pobitrodeb.com
   </h2>
 
-  <div class="container">
+<section v-if="!quizCompleted">
+   <div class="container">
     <div class="card">
       <div class="card-body">
 
-        <div class="quiz">
+        <div class="quiz" >
           <div class="quiz-info">
             <span class="question">{{ getCurrentQuestion.question }}</span>
             <span class="score">
@@ -98,10 +99,23 @@ const NextQuesttion = () => {
             {{ option }}
          </label>
         </div>
+        <button @click="NextQuesttion" :disabled="!getCurrentQuestion.seleted">
+         {{ getCurrentQuestion.index == questions.length -1 ? 'Finish' : getCurrentQuestion.seleted == null
+               ? 'Select an option'
+               : 'Next Question'
+          }}
+        </button>
 
       </div>
     </div>
   </div>
+</section>
+
+<section v-else>
+   <h2>You have a finished quiz</h2>
+   <p>Your score is {{ score }} / {{ questions.length }}</p>
+</section>
+
 </template>
 
 
